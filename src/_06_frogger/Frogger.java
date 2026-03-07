@@ -20,8 +20,8 @@ public class Frogger extends PApplet {
     @Override
     public void setup() {
     	
-    	car_01 = new Car(500, 273, 56, 50);
-    	car_02 = new Car(400, 273, 56, 50);
+    	car_01 = new Car(500, 273, 56, 20);
+    	car_02 = new Car(400, 273, 56, 20);
     	
     	
     }
@@ -33,6 +33,28 @@ public class Frogger extends PApplet {
     	ellipse(frogX, frogY, 50, 40);
     	car_01.display();
     	car_02.display();
+    	car_01.moveLeft();
+    	car_02.moveRight();
+    	
+    }
+    
+    void stopThatYouIdioticFrog() {
+    	if (frogX < 0) {
+    		frogX = 0;
+    	
+    	}
+    	if (frogY < 0) {
+    		frogY = 0;
+    	
+    	}
+    	if (frogX > WIDTH) {
+    		frogX = WIDTH;
+    	
+    	}
+    	if (frogY > HEIGHT) {
+    		frogY = HEIGHT;
+    	
+    	}
     	
     }
     
@@ -41,20 +63,21 @@ public class Frogger extends PApplet {
         if(key == CODED){
             if(keyCode == UP)
             {
-                //Frog Y position goes up
+            	frogY -= 10;
             }
             else if(keyCode == DOWN)
             {
-                //Frog Y position goes down 
+            	frogY += 10;
             }
             else if(keyCode == RIGHT)
             {
-                //Frog X position goes right
+            	frogX += 10;
             }
             else if(keyCode == LEFT)
             {
-                //Frog X position goes left
+            	frogX -= 10;
             }
+            stopThatYouIdioticFrog();
         }
     }
     
@@ -75,8 +98,21 @@ public class Frogger extends PApplet {
 
     	}
     	
-    	void moveLeft {
+    	void moveLeft() {
+    		carX -= carSpeed;
+    		if (carX < -carSize) {
+    			carX = WIDTH;
+    			
+    		}
     		
+    	}
+    	
+    	void moveRight() {
+    		carX += carSpeed;
+    		if (carX > WIDTH) {
+    			carX = -carSize;
+    			
+    		}
     		
     	}
 
