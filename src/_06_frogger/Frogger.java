@@ -10,6 +10,10 @@ public class Frogger extends PApplet {
 	int hopDistance;
 	Car car_01;
 	Car car_02;
+	Car car_uwu;
+	Car car_rawr;
+	int points;
+	
 
 	@Override
 	public void settings() {
@@ -21,6 +25,8 @@ public class Frogger extends PApplet {
 
 		car_01 = new Car(500, 273, 56, 20);
 		car_02 = new Car(400, 273, 56, 20);
+		car_uwu = new Car(300, 273, 56, 20);
+		car_rawr = new Car(120, 300, 56, 20);
 	}
 
 	@Override
@@ -28,17 +34,36 @@ public class Frogger extends PApplet {
 		background(237, 166, 42);
 		fill(23, 246, 155);
 		ellipse(frogX, frogY, 50, 40);
+		fill(0, 0, 0);
+		text("score: " + points, WIDTH - 100, 20);
 		car_01.display();
 		car_02.display();
+		car_uwu.display();
+		car_rawr.display();
 		car_01.moveLeft();
 		car_02.moveRight();
-		if (car_01.intersects(car_01) == true) {
-			
+		car_uwu.moveLeft();
+		car_rawr.moveRight();
+		if (intersects(car_01) || intersects(car_02) || intersects(car_uwu) || intersects(car_rawr)) {
+			frogX = 400;
+			frogY = 575;
 		}
-		if (car_02.intersects(car_02) == true) {
+		if (frogY == 0) {
+			frogX = 400;
+			frogY = 575;
+			points += 1000000;
 			
 		}
 
+	}
+	
+	boolean intersects(Car car) {
+		if ((frogY > car.getY() && frogY < car.getY() + 50)
+				&& (frogX > car.getX() && frogX < car.getX() + car.getSize())) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	void stopThatYouIdioticFrog() {
@@ -113,15 +138,6 @@ public class Frogger extends PApplet {
 		void display() {
 			fill(0, 255, 0);
 			rect(carX, carY, carSize, 50);
-		}
-
-		boolean intersects(Car car) {
-			if ((frogY > car.getY() && frogY < car.getY() + 50)
-					&& (frogX > car.getX() && frogX < car.getX() + car.getSize())) {
-				return true;
-			} else {
-				return false;
-			}
 		}
 
 	}
